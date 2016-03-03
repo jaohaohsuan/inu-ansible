@@ -1,0 +1,23 @@
+---
+- name: create empty layout
+  raw: "echo -e \"lable: dos\nlabel-id: 0x00000000\ndevice: /dev/sda\nunit: sectors\n\" > /tmp/empty.layout"
+- name: delete all partitions
+  raw: "sfdisk -d /dev/sda < /tmp/empty.layout"
+- name: coreos-install
+  raw: "coreos-install -d /dev/sda -C {{ channel }} -c /media/usbconfig/cloud-config.yml"
+- name: eject cd-rom
+  raw: "eject -r"
+- name: reboot installed os
+  raw: "shutdown -r now"
+  async: 0
+  poll: 0
+  ignore_errors: true
+- name: wait for server to restart
+  local_action:
+    module: wait_for 
+    host: "{{ ansible_host | default(inventory_hostname) }}" 
+    port: "{{ ansible_port }}"
+    delay: 5
+    timeout: 30 
+  become: no
+# vim:ft=ansible:

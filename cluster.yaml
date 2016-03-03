@@ -1,0 +1,18 @@
+---
+- hosts: coreos
+  gather_facts: false
+  become: yes
+  roles:
+    - pre-ansible
+  tags:
+    - cows
+
+# config etcd2
+- hosts: etcd2
+  become: yes
+  roles:
+    - common
+    - etcd2
+  tags:
+    - masters
+# vim:ft=ansible:

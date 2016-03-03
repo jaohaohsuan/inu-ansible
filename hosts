@@ -1,0 +1,19 @@
+c2 ansible_host=192.168.31.210 ansible_port=22 
+c3 ansible_host=192.168.31.112 ansible_port=22
+c5 ansible_host=192.168.31.244 ansible_port=22
+
+[unset]
+c5
+
+[coreos]
+c2
+c3
+
+[coreos:vars]
+ansible_ssh_user=core
+ansible_ssh_private_key_file=/Users/henry/.ssh/id_rsa
+ansible_python_interpreter="PATH=/home/core/bin:$PATH python"
+
+[unset:vars]
+ansible_ssh_user=core
+ansible_ssh_private_key_file=/Users/henry/.ssh/id_rsa

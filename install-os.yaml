@@ -1,0 +1,7 @@
+---
+- hosts: unset
+  gather_facts: false
+  become: yes
+  roles:
+    - install-os
+# vim:ft=ansible:
